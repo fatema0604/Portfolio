@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- EDIT: replace the title and description with your own before publishing -->
+  <title>Fatema Khatun | Portfolio</title>
+  <meta name="description"
+    content="Portfolio of Fatema Khatun, BCA AI ML student at Brainware University. Explore five projects: To Do List, Calculator, Tic Tac Toe, MDoNER and F-Watch." />
+  <meta name="theme-color" content="#000000" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Jost:wght@400;500&family=Great+Vibes&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#projects">Skip to projects</a>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Fatema Khatun home">
+      <img src="assets/brand.svg" alt="Brand logo" />
+    </a>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <!-- Contact link: add <li><a href="#contact">Contact</a></li> once you supply contact details -->
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="hero-name">Fatema Khatun</h1>
+      <!-- EDIT: headline / tagline -->
+      <p class="hero-tagline">
+        BCA AI ML Student &bull; Brainware University
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">Explore</a>
+        <a class="btn btn-secondary" href="#about">About me</a>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 id="projects-title" class="section-title">Projects</h2>
+        <p class="section-intro">
+          Five projects I have built
+        </p>
+
+        <ul class="project-grid">
+          <li class="card">
+            <h3>Tic Tac Toe</h3>
+            <p>Elevate your gaming experience with this dynamic Tic Tac Toe website! Enjoy stunning custom themes and
+              four exciting modes, including classic 3x3, 4x4, 5x5 grids, and an ultimate mega board for endless
+              strategy.</p>
+            <a class="card-link" href="./projects/TicTacToe/index.html" aria-label="View project: Tic Tac Toe">View project</a>
+          </li>
+
+          <li class="card">
+            <h3>MDoNER: Disaster Alerting for NER, India</h3>
+            <p>
+              An AI early-warning platform that reads rainfall, terrain and
+              ground sensors across the North Eastern Region, and turns a
+              rising risk score into an SMS before the slope moves.
+            </p>
+            <a class="card-link" href="./projects/MDoNER/index.html"
+              aria-label="View project: MDoNER, Disaster Alerting for NER, India">View project</a>
+          </li>
+
+          <li class="card">
+            <h3>F-Watch</h3>
+            <p>F-Watch is a feature-rich YouTube inspired web application designed to deliver a seamless video-streaming
+              experience. It replicates core functionalities like video playback, dynamic browsing, user subscriptions,
+              and responsive interfaces for modern media consumption.</p>
+            <a class="card-link" href="./projects/f-Watch/index.html" aria-label="View project: F-Watch">View project</a>
+          </li>
+          <li class="card">
+            <h3>To Do List</h3>
+            <p class="note">
+              <em>Under Development!</em>
+            </p>
+            <p>A to-do list is a powerful organizational tool that turns overwhelming goals into manageable steps,
+              boosts daily productivity, reduces mental clutter, and ensures important tasks are never forgotten.</p>
+            <!-- EDIT: change href if your folder name is different -->
+            <a class="card-link" href="./projects/ToDoList/index.html" aria-label="View project: To Do List">View project</a>
+          </li>
+
+          <li class="card">
+            <h3>Calculator</h3>
+            <p class="note">
+              <em>Under Development!</em>
+            </p>
+            <p>
+              Access a powerful online scientific calculator for advanced mathematics, trigonometry, and statistics.
+              Solve complex equations instantly through a clean interface built specifically for modern students,
+              engineers, scientists, and working professionals.
+            </p>
+            <a class="card-link" href="./projects/calculator/index.html" aria-label="View project: Calculator">View project</a>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container about">
+        <h2 id="about-title" class="section-title">About</h2>
+        <p>
+          I'm Fatema Khatun, a BCA student specializing in Artificial Intelligence and Machine Learning at
+          Brainware University Aspiring Al Engineer | Python & Machine Learning Learner | Exploring Al, Data & Software
+          Development| Passionate About Technology & Problem Solving.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <!-- EDIT: add optional contact or social links here -->
+    <p>&copy; <span id="year">2026</span> Fatema Khatun</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>

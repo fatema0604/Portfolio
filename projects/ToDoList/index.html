@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskFlow</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-mark">TF</div>
+          <div>
+            <h1>TaskFlow</h1>
+          </div>
+        </div>
+
+        <button id="new-task-btn" class="primary-btn">+ New Task</button>
+
+        <nav class="sidebar-nav" aria-label="Task views">
+          <button class="nav-item active" data-nav="inbox">Inbox</button>
+          <button class="nav-item" data-nav="today">Today</button>
+          <button class="nav-item" data-nav="upcoming">Upcoming</button>
+          <button class="nav-item" data-nav="calendar">Calendar</button>
+          <button class="nav-item" data-nav="all">All Tasks</button>
+          <button class="nav-item" data-nav="completed">Completed</button>
+          <button class="nav-item" data-nav="overdue">Overdue</button>
+        </nav>
+
+        <div class="section-title-row">
+          <h2>Projects</h2>
+          <button class="ghost-btn" id="add-project-btn" type="button">+</button>
+        </div>
+        <div id="project-list" class="project-list"></div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Search tasks, tags, projects..."
+              aria-label="Search tasks"
+            />
+          </div>
+
+          <div class="topbar-actions">
+            <button id="export-btn" class="secondary-btn" type="button">Export</button>
+            <label class="secondary-btn import-btn">Import<input id="import-input" type="file" accept="application/json,.json" /></label>
+            <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle theme">🌙</button>
+            <button id="view-toggle" class="secondary-btn" type="button">List View</button>
+          </div>
+        </header>
+
+        <section class="summary-grid" id="summary-grid">
+          <article class="summary-card accent">
+            <span class="summary-label">Today</span>
+            <strong id="today-count">0</strong>
+            <small>Tasks due today</small>
+          </article>
+          <article class="summary-card success">
+            <span class="summary-label">Completed</span>
+            <strong id="completed-count">0</strong>
+            <small>Finished work</small>
+          </article>
+          <article class="summary-card warning">
+            <span class="summary-label">Overdue</span>
+            <strong id="overdue-count">0</strong>
+            <small>Need attention</small>
+          </article>
+          <article class="summary-card info">
+            <span class="summary-label">Upcoming</span>
+            <strong id="upcoming-count">0</strong>
+            <small>Scheduled next</small>
+          </article>
+        </section>
+
+        <section class="welcome-panel" aria-label="Daily overview">
+          <div><p class="eyebrow" id="welcome-date"></p><h2 id="welcome-heading">Good day 👋</h2><p>Here’s what you need to get done.</p></div>
+          <div class="progress-block"><div class="progress-copy"><span>Today’s progress</span><strong id="progress-label">0 / 0 complete</strong></div><div class="progress-track"><span id="progress-bar"></span></div></div>
+        </section>
+
+        <section class="quick-add-panel">
+          <input
+            id="quick-add-input"
+            type="text"
+            placeholder="Quick add task: Finish math assignment tomorrow at 7 PM #college !high"
+            aria-label="Quick add task"
+          />
+          <button id="quick-add-btn" class="primary-btn" type="button">Add</button>
+        </section>
+
+        <section class="toolbar-row">
+          <div class="filter-pills">
+            <select id="status-filter">
+              <option value="all">All statuses</option>
+              <option value="not-started">Not started</option>
+              <option value="in-progress">In progress</option>
+              <option value="review">Review</option>
+              <option value="completed">Completed</option>
+            </select>
+            <select id="priority-filter">
+              <option value="all">All priorities</option>
+              <option value="none">None</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+            <select id="project-filter">
+              <option value="all">All projects</option>
+            </select>
+            <select id="sort-select" aria-label="Sort tasks">
+              <option value="created">Recently added</option>
+              <option value="due">Due date</option>
+              <option value="priority">Priority</option>
+              <option value="title">Title</option>
+            </select>
+          </div>
+        </section>
+
+        <section id="calendar-toolbar" class="calendar-toolbar hidden" aria-label="Calendar controls">
+          <button id="calendar-prev" class="secondary-btn" type="button" aria-label="Previous month">←</button>
+          <h2 id="calendar-month"></h2>
+          <button id="calendar-next" class="secondary-btn" type="button" aria-label="Next month">→</button>
+          <button id="calendar-today" class="ghost-btn" type="button">Today</button>
+        </section>
+
+        <section id="task-container" class="task-container" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <div id="undo-toast" class="undo-toast" role="status" aria-live="polite"><span>Task deleted</span><button id="undo-delete" type="button">Undo</button></div>
+
+    <div id="task-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal="true"></div>
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+        <header class="modal-header">
+          <h2 id="task-modal-title">Task Details</h2>
+          <button class="icon-btn" type="button" data-close-modal="true" aria-label="Close dialog">✕</button>
+        </header>
+
+        <form id="task-form">
+          <input type="hidden" id="task-id" />
+
+          <div class="field-grid two-col">
+            <label>
+              <span>Title</span>
+              <input id="task-title" name="title" type="text" required />
+            </label>
+            <label>
+              <span>Project</span>
+              <input id="task-project" name="project" type="text" placeholder="e.g. College" />
+            </label>
+          </div>
+
+          <label>
+            <span>Description</span>
+            <textarea id="task-description" name="description" rows="3"></textarea>
+          </label>
+
+          <div class="field-grid three-col">
+            <label>
+              <span>Status</span>
+              <select id="task-status" name="status">
+                <option value="not-started">Not started</option>
+                <option value="in-progress">In progress</option>
+                <option value="review">Review</option>
+                <option value="completed">Completed</option>
+              </select>
+            </label>
+            <label>
+              <span>Priority</span>
+              <select id="task-priority" name="priority">
+                <option value="none">None</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </label>
+            <label>
+              <span>Due date</span>
+              <input id="task-due-date" name="dueDate" type="date" />
+            </label>
+          </div>
+
+          <div class="field-grid two-col">
+            <label>
+              <span>Due time</span>
+              <input id="task-due-time" name="dueTime" type="time" />
+            </label>
+            <label>
+              <span>Tags</span>
+              <input id="task-tags" name="tags" type="text" placeholder="#college #urgent" />
+            </label>
+          </div>
+
+          <label>
+            <span>Notes</span>
+            <textarea id="task-notes" name="notes" rows="4" placeholder="Add notes, checklist details, or meeting context..."></textarea>
+          </label>
+
+          <div class="subtasks-section">
+            <div class="section-title-row compact">
+              <h3>Subtasks</h3>
+              <button class="ghost-btn" type="button" id="add-subtask-btn">+ Add</button>
+            </div>
+            <div id="subtask-list" class="subtask-list"></div>
+          </div>
+
+          <div class="attachment-section">
+            <div class="section-title-row compact">
+              <h3>Attachments</h3>
+              <label class="file-upload-btn">
+                <input id="attachment-input" type="file" multiple />
+                Attach files
+              </label>
+            </div>
+            <div id="attachment-list" class="attachment-list"></div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="secondary-btn" type="button" data-close-modal="true">Cancel</button>
+            <button class="primary-btn" type="submit">Save Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#eaf5ff" />
+  <title>F-Watch — Find your next favorite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="signin-gate" id="signInGate" aria-labelledby="signinTitle">
+    <div class="signin-decoration signin-decoration-one"></div><div class="signin-decoration signin-decoration-two"></div>
+    <div class="signin-card">
+      <a class="brand signin-brand" href="#" aria-label="F-Watch"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M8 5.8c0-.8.87-1.3 1.56-.88l9 5.46a1 1 0 0 1 0 1.72l-9 5.46A1.03 1.03 0 0 1 8 16.68V5.8Z" fill="white"/></svg></span><span>F-<span>Watch</span></span></a>
+      <div class="signin-heading"><span class="signin-kicker">WELCOME BACK</span><h1 id="signinTitle">Your next favorite<br>video is waiting.</h1><p>Sign in to find your corner of the internet.</p></div>
+      <form id="signInForm" class="signin-form">
+        <label for="signinEmail">Email address</label><input id="signinEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        <div class="password-label"><label for="signinPassword">Password</label><a href="#" id="forgotPassword">Forgot password?</a></div><input id="signinPassword" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" minlength="6" required>
+        <p class="signin-error" id="signinError" role="alert"></p>
+        <button type="submit" class="signin-submit">Sign in <span>→</span></button>
+      </form>
+      <p class="signin-note"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="12" height="9" rx="2"/><path d="M7 8V5a3 3 0 0 1 6 0v3m-3 4v2"/></svg>Demo sign-in only. Your details stay in this browser session.</p>
+      <section id="profileSetup" class="profile-setup" hidden>
+        <div class="profile-step">STEP 2 OF 2</div>
+        <h2>Make it yours</h2>
+        <p class="profile-intro">Choose a name and avatar for your F-Watch profile.</p>
+        <form id="profileForm" class="profile-form">
+          <label for="profileName">Your name</label>
+          <input id="profileName" name="name" type="text" maxlength="28" placeholder="What should we call you?" autocomplete="name" required>
+          <fieldset class="avatar-picker"><legend>Choose your avatar</legend><div class="avatar-options" id="avatarOptions"></div></fieldset>
+          <p class="signin-error" id="profileError" role="alert"></p>
+          <button type="submit" class="signin-submit">Continue to F-Watch <span>→</span></button>
+        </form>
+      </section>
+    </div>
+    <div class="signin-footer">A little something good to watch. <span>✦</span></div>
+  </section>
+  <div id="siteShell" hidden>
+  <header class="topbar">
+    <button class="icon-btn mobile-menu" id="menuToggle" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <a class="brand" href="#" aria-label="F-Watch home"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M8 5.8c0-.8.87-1.3 1.56-.88l9 5.46a1 1 0 0 1 0 1.72l-9 5.46A1.03 1.03 0 0 1 8 16.68V5.8Z" fill="white"/></svg></span><span>F-<span>Watch</span></span></a>
+    <form class="search-wrap" id="searchForm"><input id="searchInput" type="search" placeholder="Search videos, creators..." aria-label="Search videos"><button class="search-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg></button></form>
+    <div class="top-actions"><button class="icon-btn" id="uploadBtn" aria-label="Upload video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v5h14v-5"/></svg></button><button class="icon-btn" id="bellBtn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button><img class="avatar" id="profileAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces" alt="Your profile"></div>
+  </header>
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar">
+      <nav>
+        <a class="side-link active" href="#home" data-nav="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"/></svg>Home</a>
+        <a class="side-link" href="#trending" data-nav="Trending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22c4.2 0 7-2.8 7-6.6 0-3.2-2.3-5.4-4.7-8.2-.2 2-1.2 3.2-2.1 3.8C11.6 7.3 9.6 4.8 7 3c.3 4.9-2 7-2 12.1C5 18.8 7.8 22 12 22Z"/></svg>Trending</a>
+        <a class="side-link" href="#subscriptions" data-nav="Subscriptions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v12H4zM8 21h8M12 17v4M10 8l5 3-5 3V8Z"/></svg>Subscriptions</a>
+        <a class="side-link" href="#history" data-nav="History"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8m0-5v5h5M12 7v5l3.5 2"/></svg>History</a>
+        <div class="side-title">YOUR LIBRARY</div>
+        <a class="side-link" href="#liked" data-nav="Liked videos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.8 8.8c0 5.3-8.8 11-8.8 11s-8.8-5.7-8.8-11A4.3 4.3 0 0 1 11 6.5l1 1 1-1a4.3 4.3 0 0 1 7.8 2.3Z"/></svg>Liked videos</a>
+        <a class="side-link" href="#watch-later" data-nav="Watch later"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Watch later</a>
+        <div class="side-title">FOLLOWING <span style="float:right;color:#afbdc9">•••</span></div>
+        <a class="side-link" href="#studio" data-nav="Studio North"><img class="mini-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&crop=faces" alt="">Studio North<span class="live"></span></a>
+        <a class="side-link" href="#maya" data-nav="Maya Chen"><img class="mini-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=faces" alt="">Maya Chen</a>
+        <a class="side-link" href="#roam" data-nav="Roam Free"><img class="mini-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=faces" alt="">Roam Free</a>
+      </nav>
+      <div class="side-bottom"><a class="side-link" href="#settings" data-nav="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1a1.7 1.7 0 1 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.3a1.7 1.7 0 1 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 1 1 0-3.4h.2a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 1 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.3a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></svg>Settings</a></div>
+    </aside>
+    <main class="main">
+      <section class="welcome"><div class="welcome-copy"><div class="eyebrow"><i></i>YOUR DAILY DOSE OF DISCOVERY</div><h1>Good morning, <span id="welcomeName">Alex</span> <span>☀️</span></h1><p>Fresh ideas, new perspectives, and a little inspiration.</p></div><div class="welcome-art"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.8c0-.8.87-1.3 1.56-.88l9 5.46a1 1 0 0 1 0 1.72l-9 5.46A1.03 1.03 0 0 1 8 16.68V5.8Z"/></svg></span></div></section>
+      <div class="section-head"><div><h2 id="sectionTitle">Recommended for you</h2><p id="sectionSubtitle">Handpicked videos based on what you love</p></div><button class="sort" id="sortBtn">✦ &nbsp; For you⌄</button></div>
+      <div class="categories" id="categories"></div>
+      <section class="video-grid" id="videoGrid" aria-live="polite"></section>
+      <div class="load-row"><button class="load-btn" id="loadMore">Show me more&nbsp; ↓</button></div>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="modal-box"><div class="modal-top"><span>Now playing on F-Watch</span><button class="modal-close" id="modalClose" aria-label="Close">✕</button></div><div class="modal-screen"><img id="modalImage" alt=""><button id="playBtn" aria-label="Play video"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.8c0-.8.87-1.3 1.56-.88l9 5.46a1 1 0 0 1 0 1.72l-9 5.46A1.03 1.03 0 0 1 8 16.68V5.8Z"/></svg></button></div><div class="modal-caption"><strong id="modalTitle"></strong>Preview experience · Video playback is a demo</div></div></div>
+  </div>
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" data-appearance="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f3ed">
+    <meta name="description" content="A cozy Tic Tac Toe game for two or against a bot. Play classic, larger boards, or Mega Tic Tac Toe with 20 themes.">
+    <title>Tic Tac Toe — a little friendly rivalry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Tic Tac Toe home">
+          <span class="brand-mark" id="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">little <strong>XO</strong> club</span>
+        </a>
+        <div class="topbar-actions">
+          <span class="local-badge"><span class="live-dot"></span><span id="opponent-badge">LOCAL 2-PLAYER</span></span>
+          <button class="appearance-toggle" id="appearance-toggle" type="button" aria-pressed="false" aria-label="Switch to dark appearance">
+            <span class="appearance-icon" aria-hidden="true">◐</span><span id="appearance-label">Dark mode</span>
+          </button>
+          <button class="theme-trigger" id="theme-trigger" type="button" aria-haspopup="dialog" aria-controls="theme-dialog">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.1a2 2 0 0 0 1.6-3.2 1.7 1.7 0 0 1 1.4-2.8H18a3 3 0 0 0 3-3c0-5-4-9-9-9Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="15" cy="8" r="1"/></svg>
+            <span>Theme</span>
+            <span class="theme-current" id="theme-current">Classic</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section class="intro" aria-labelledby="page-title">
+          <div class="eyebrow"><span class="eyebrow-line"></span> THE WORLD'S SMALLEST ARENA <span class="eyebrow-line"></span></div>
+          <h1 id="page-title">A little friendly <span>rivalry.</span></h1>
+          <p>Pick a board. Pick your mark. May the best move win.</p>
+        </section>
+
+        <section class="game-card" aria-label="Tic Tac Toe game">
+          <div class="game-toolbar">
+            <div class="mode-select" role="group" aria-label="Choose game mode">
+              <button class="mode-button active" type="button" data-mode="3" aria-pressed="true">Classic <span>3×3</span></button>
+              <button class="mode-button" type="button" data-mode="4" aria-pressed="false">Big <span>4×4</span></button>
+              <button class="mode-button" type="button" data-mode="5" aria-pressed="false">Bigger <span>5×5</span></button>
+              <button class="mode-button" type="button" data-mode="mega" aria-pressed="false">Mega <span>3×3</span></button>
+            </div>
+            <div class="opponent-select" role="group" aria-label="Choose opponent">
+              <button class="opponent-button active" type="button" data-opponent="human" aria-pressed="true">2 Players</button>
+              <button class="opponent-button" type="button" data-opponent="bot" aria-pressed="false">VS Bot</button>
+            </div>
+            <button class="restart-button" id="restart-button" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 9a7 7 0 0 1 11.6-2L20 12M4 12l2.3 5a7 7 0 0 0 11.6-2"/></svg>
+              New game
+            </button>
+          </div>
+
+          <div class="game-body">
+            <div class="play-area">
+              <div class="turn-card" aria-live="polite" aria-atomic="true">
+                <div class="turn-player" id="turn-player"><span class="turn-mark" aria-hidden="true"></span></div>
+                <div class="turn-copy">
+                  <span class="turn-caption" id="turn-caption">PLAYER X'S TURN</span>
+                  <span class="turn-message" id="turn-message">Make it a good one.</span>
+                </div>
+                <span class="turn-number" id="turn-number">01</span>
+              </div>
+              <div id="board" class="board board-standard" role="grid" aria-label="Classic Tic Tac Toe board"></div>
+              <div class="board-footnote"><span class="footnote-icon">✳</span><span id="board-hint">Three in a row wins. No pressure.</span></div>
+            </div>
+
+            <aside class="game-aside">
+              <div class="score-heading"><span class="mini-sparkle">✳</span> <span id="players-heading">THE PLAYERS</span> <span class="mini-sparkle">✳</span></div>
+              <div class="player-card player-x" id="player-x-card">
+                <div class="player-symbol" data-mark="X"></div>
+                <div class="player-details"><span class="player-name">Player X</span><span class="player-state" id="player-x-state">Ready to play</span></div>
+                <span class="score-value" id="player-x-score">0</span>
+              </div>
+              <div class="player-card player-o" id="player-o-card">
+                <div class="player-symbol" data-mark="O"></div>
+                <div class="player-details"><span class="player-name">Player O</span><span class="player-state" id="player-o-state">Ready to play</span></div>
+                <span class="score-value" id="player-o-score">0</span>
+              </div>
+              <div class="aside-divider"></div>
+              <div class="rules-card">
+                <span class="rules-icon">✎</span>
+                <div><h2 id="rules-title">The rules</h2><p id="rules-copy">Take turns placing your mark. First to line up three horizontally, vertically, or diagonally takes the round.</p></div>
+              </div>
+              <div class="aside-note"><span aria-hidden="true">☻</span> Same screen, same stakes.</div>
+            </aside>
+          </div>
+          <footer class="game-footer"><span id="footer-opponent">BEST PLAYED WITH A FRIEND</span><span class="footer-heart" aria-hidden="true">♥</span><span>NO GLOWING SCREENS REQUIRED</span></footer>
+        </section>
+        <p class="page-note">No accounts. No pressure. Just one more round.</p>
+      </main>
+      <footer class="site-footer"><span>MADE FOR MOMENTS BETWEEN EVERYTHING ELSE</span><span>EST. RIGHT NOW <span class="footer-star">✳</span></span></footer>
+    </div>
+
+    <dialog class="theme-dialog" id="theme-dialog" aria-labelledby="theme-title">
+      <div class="theme-dialog-header">
+        <div><span class="dialog-eyebrow">MAKE YOURSELF AT HOME</span><h2 id="theme-title">Pick your vibe<span>.</span></h2></div>
+        <button class="dialog-close" id="theme-close" type="button" aria-label="Close theme picker">×</button>
+      </div>
+      <p class="theme-description">A fresh little look for your next round.</p>
+      <div class="theme-grid" id="theme-grid" role="group" aria-label="Available themes"></div>
+      <div class="theme-dialog-footer"><span><span class="live-dot"></span> YOUR PICK SAVES AUTOMATICALLY</span><span id="theme-count">20 PRESETS</span></div>
+    </dialog>
+    <dialog class="result-dialog" id="result-dialog" aria-labelledby="result-title" aria-describedby="result-copy">
+      <button class="dialog-close result-close" id="result-close" type="button" aria-label="Close result">×</button>
+      <div class="result-confetti" aria-hidden="true">✳</div>
+      <span class="dialog-eyebrow" id="result-eyebrow">ROUND COMPLETE</span>
+      <div class="result-mark" id="result-mark" aria-hidden="true"></div>
+      <h2 id="result-title">Nice game!</h2>
+      <p id="result-copy">Ready for another round?</p>
+      <div class="result-actions">
+        <button class="result-primary" id="result-new-game" type="button">New game</button>
+        <button class="result-secondary" id="result-back" type="button">Back to board</button>
+      </div>
+    </dialog>
+    <div class="sr-only" id="announcement" aria-live="assertive" aria-atomic="true"></div>
+  </body>
+</html>

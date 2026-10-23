@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#12181A">
+<title>MDoNER — AI-Based Landslide Early Warning &amp; Risk Monitoring, NER</title>
+<meta name="description" content="MDoNER: AI-based early warning and landslide risk monitoring system for India's North Eastern Region.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/themes.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 20 20"><path d="M2 16 L7 6 L10 11 L13 4 L18 16 Z" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      MDoNER
+    </div>
+    <div class="navlinks" id="navlinks">
+      <a href="#problem">Problem</a>
+      <a href="#modules">Modules</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#report">Report</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#metrics">Metrics</a>
+    </div>
+    <div class="nav-right">
+      <div class="theme-switch">
+        <button class="accent-picker" id="accent-swatch" title="Pick accent color" aria-label="Pick accent color" type="button" onclick="document.getElementById('accent-picker').click()"></button>
+        <input type="color" id="accent-picker" value="#D2A227" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;">
+        <button class="theme-toggle" id="theme-toggle" role="switch" aria-label="Toggle dark/light theme" aria-pressed="false" type="button"></button>
+      </div>
+      <a href="#cta" class="nav-cta">Request access</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" type="button"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <canvas id="contour-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="eyebrow">Live threshold monitoring · NER, India</div>
+    <h1 class="headline">Slopes fail fast.<br>Warnings should be <em>faster</em>.</h1>
+    <p class="hero-sub">MDoNER is an AI early-warning platform that reads rainfall, terrain and ground sensors across the North Eastern Region, and turns a rising risk score into an SMS before the slope moves.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Request a district briefing</a>
+      <a href="#modules" class="btn-ghost">See how it works</a>
+    </div>
+  </div>
+  <div class="stat-strip wrap">
+    <div class="stat"><div class="stat-num">&gt;85%</div><div class="stat-label">Target prediction accuracy</div></div>
+    <div class="stat"><div class="stat-num">&lt;60s</div><div class="stat-label">Threshold breach to SMS</div></div>
+    <div class="stat"><div class="stat-num">3 hrs</div><div class="stat-label">Earliest time-to-failure window</div></div>
+    <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Local languages supported</div></div>
+  </div>
+</section>
+
+<section class="problem" id="problem">
+  <div class="wrap problem-grid">
+    <div class="problem-text">
+      <div class="section-tag">Why this exists</div>
+      <h2 class="section-title" style="margin-bottom:24px;">Reactive response can't keep up with monsoon terrain</h2>
+      <p>Heavy rainfall, fragile slopes and fast-expanding infrastructure make the North Eastern Region one of the most landslide-exposed parts of the country. <strong>Roads get cut, villages get isolated, and responders find out after the ground has already moved.</strong></p>
+      <p>MDoNER exists to move that moment earlier — from clearing debris to predicting the slope that's about to fail, and telling the people standing on it.</p>
+    </div>
+    <div class="factor-list">
+      <div class="factor"><span class="factor-name">Heavy, erratic monsoon rainfall</span><span class="factor-tag">Trigger</span></div>
+      <div class="factor"><span class="factor-name">Steep, geologically young terrain</span><span class="factor-tag">Terrain</span></div>
+      <div class="factor"><span class="factor-name">Unplanned slope-cutting &amp; construction</span><span class="factor-tag">Human</span></div>
+      <div class="factor"><span class="factor-name">Delayed, manual field reporting</span><span class="factor-tag">Process</span></div>
+      <div class="factor"><span class="factor-name">Isolated villages, weak connectivity</span><span class="factor-tag">Access</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="modules">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">System modules</div>
+      <h2 class="section-title">Five parts, one pipeline</h2>
+      <p class="section-desc">From raw signal to a warning someone can act on — each module hands off to the next.</p>
+    </div>
+    <div class="feature-list">
+      <div class="feature-row">
+        <div class="feature-num">01</div>
+        <div class="feature-name"><span>Ingestion</span>Multi-source data ingestion</div>
+        <div class="feature-desc">Continuously synchronises the signals a slope actually depends on.
+          <ul>
+            <li>Rainfall &amp; forecasts via IMD APIs</li>
+            <li>Terrain, slope &amp; imagery via NESAC / ISRO's Landslide Atlas</li>
+            <li>Soil moisture &amp; inclinometer readings from field IoT sensors</li>
+            <li>Historical landslide inventories for model training</li>
+          </ul>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-num">02</div>
+        <div class="feature-name"><span>Prediction</span>AI/ML predictive engine</div>
+        <div class="feature-desc">Turns incoming signal into a score and a countdown.
+          <ul>
+            <li>Dynamic susceptibility score — Low, Moderate, High, Severe — per geolocation</li>
+            <li>Time-to-failure estimate, up to a 3-hour lead window</li>
+          </ul>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-num">03</div>
+        <div class="feature-name"><span>Field input</span>Citizen crowdsourcing app</div>
+        <div class="feature-desc">Puts eyes on the ground where sensors can't reach.
+          <ul>
+            <li>Geo-tagged photo/video reporting of cracks and slope movement</li>
+            <li>Offline-first: saves locally, syncs when signal returns</li>
+          </ul>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-num">04</div>
+        <div class="feature-name"><span>Visualisation</span>Interactive GIS dashboard</div>
+        <div class="feature-desc">Gives district authorities one map to make decisions from.
+          <ul>
+            <li>Real-time risk heatmaps over topographic layers</li>
+            <li>Critical roads, bridges and villages overlaid to flag connectivity threats</li>
+          </ul>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-num">05</div>
+        <div class="feature-name"><span>Response</span>Automated alert generation</div>
+        <div class="feature-desc">Closes the loop from breached threshold to warned resident.
+          <ul>
+            <li>Push, SMS and WhatsApp alerts on threshold breach</li>
+            <li>Delivered in Assamese, Khasi, Mizo, Bengali, Hindi and more</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Live view</div>
+      <h2 class="section-title">District risk dashboard</h2>
+      <p class="section-desc">Simulated live feed for this demo — scores tick every few seconds the way a real sensor/ML feed would update the map.</p>
+    </div>
+    <div class="dash-toolbar">
+      <span class="dash-refresh" id="dash-updated">Loading…</span>
+    </div>
+    <div class="dash-table-wrap">
+      <table class="dash-table">
+        <thead>
+          <tr><th>District</th><th>Risk level</th><th>Score</th><th>Rainfall (24h)</th></tr>
+        </thead>
+        <tbody id="dash-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="report" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap form-grid">
+    <div>
+      <div class="section-tag">Crowdsourcing</div>
+      <h2 class="section-title">Report a warning sign</h2>
+      <p class="section-desc" style="margin-bottom:28px;">Cracks, tilted trees, sudden springs, or ground movement — a quick field report here feeds directly into the risk model.</p>
+      <form id="report-form">
+        <div class="field">
+          <label for="r-district">District</label>
+          <select id="r-district" name="district" data-fill="districts" required>
+            <option value="" disabled selected>Select district</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="r-obs">What did you observe?</label>
+          <textarea id="r-obs" name="observation" placeholder="e.g. New crack along the roadside slope near the bridge" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Submit report</button>
+        <p class="form-note">Stored locally for this demo — a production build syncs to the MDoNER field-data API.</p>
+      </form>
+    </div>
+    <div>
+      <div class="section-tag">Recent reports</div>
+      <h2 class="section-title" style="font-size:24px; margin-bottom:20px;">From the field</h2>
+      <div class="report-list" id="report-list"></div>
+    </div>
+  </div>
+</section>
+
+<section class="flow" id="architecture">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:40px;">
+      <div class="section-tag">Architecture</div>
+      <h2 class="section-title">Sensor to SMS, in one pipeline</h2>
+      <p class="section-desc">A straight line from raw data to a warning in someone's hand — every hop measured for latency.</p>
+    </div>
+    <div class="flow-diagram">
+      <div class="flow-node"><div class="n-title">Data sources</div><div class="n-sub">IMD · NESAC · IoT · history</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="n-title">Ingestion layer</div><div class="n-sub">sync &amp; normalise</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="n-title">ML risk engine</div><div class="n-sub">susceptibility score</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="n-title">GIS dashboard</div><div class="n-sub">SDMA / NDRF view</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><div class="n-title">Alert dispatch</div><div class="n-sub">SMS · push · WhatsApp</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Who it's built for</div>
+      <h2 class="section-title">Three roles, one shared map</h2>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="a-tag">Govern</div>
+        <h3>SDMAs &amp; district administrations</h3>
+        <p>Monitor risk across the district, prioritise infrastructure at threat, and coordinate response before roads are cut.</p>
+      </div>
+      <div class="audience-card">
+        <div class="a-tag">Respond</div>
+        <h3>NDRF, SDRF &amp; police</h3>
+        <p>See exactly where and when a slope is likely to fail, and stage resources on the right side of it.</p>
+      </div>
+      <div class="audience-card">
+        <div class="a-tag">Live it</div>
+        <h3>Local communities</h3>
+        <p>Report warning signs from a phone, get alerts in their own language, before the ground moves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="metrics">
+  <div class="wrap split-cols">
+    <div>
+      <div class="section-tag">Built for the terrain</div>
+      <h2 class="section-title" style="font-size:28px; margin-bottom:24px;">Non-functional requirements</h2>
+      <div class="nfr-item">
+        <div class="nfr-title">Low-network resilience</div>
+        <div class="nfr-desc">Lightweight mobile app, functional on 2G/3G — the reality across remote NER districts.</div>
+      </div>
+      <div class="nfr-item">
+        <div class="nfr-title">Scalability</div>
+        <div class="nfr-desc">Cloud architecture built to absorb traffic and data spikes through the monsoon season.</div>
+      </div>
+      <div class="nfr-item">
+        <div class="nfr-title">Data security</div>
+        <div class="nfr-desc">Encrypted storage and secured endpoints for citizen data and sensitive geospatial layers.</div>
+      </div>
+    </div>
+    <div>
+      <div class="section-tag">Held accountable to</div>
+      <h2 class="section-title" style="font-size:28px; margin-bottom:24px;">Success metrics</h2>
+      <div class="kpi-card">
+        <div class="kpi-top"><span class="kpi-name">Prediction accuracy</span><span class="kpi-target">&gt;85%</span></div>
+        <div class="kpi-desc">Correctly identifying landslide-prone zones ahead of failure.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-top"><span class="kpi-name">System latency</span><span class="kpi-target">&lt;60s</span></div>
+        <div class="kpi-desc">From threshold breach to SMS alert delivered.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-top"><span class="kpi-name">User adoption</span><span class="kpi-target">↑</span></div>
+        <div class="kpi-desc">Active field officers and citizens using the crowdsourcing app.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="subscribe" style="background:var(--bg-2); border-top:1px solid var(--border);">
+  <div class="wrap" style="max-width:560px;">
+    <div class="section-tag">Stay warned</div>
+    <h2 class="section-title" style="font-size:28px;">Subscribe to district alerts</h2>
+    <p class="section-desc" style="margin-bottom:28px;">Get SMS/WhatsApp alerts the moment your district's risk threshold breaches.</p>
+    <form id="subscribe-form">
+      <div class="field">
+        <label for="s-contact">Phone or WhatsApp number</label>
+        <input id="s-contact" name="contact" type="tel" placeholder="+91 " required>
+      </div>
+      <div class="field">
+        <label for="s-district">District</label>
+        <select id="s-district" name="district" data-fill="districts" required>
+          <option value="" disabled selected>Select district</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="s-lang">Preferred language</label>
+        <select id="s-lang" name="language">
+          <option>English</option><option>Hindi</option><option>Assamese</option>
+          <option>Khasi</option><option>Mizo</option><option>Bengali</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<section class="cta-final" id="cta">
+  <div class="section-tag" style="justify-content:center; display:flex;">Get involved</div>
+  <h2>Bring MDoNER to your district before the next monsoon.</h2>
+  <p>Built for SDMAs, first responders and the communities living on the slope.</p>
+  <a href="#report" class="btn-primary">Request a district briefing</a>
+</section>
+
+<footer>
+  <span>MDoNER — AI-Based Early Warning &amp; Landslide Risk Monitoring System, North Eastern Region</span>
+  <span>Aligned with Ministry of Development of North Eastern Region · NRSC/NESAC data frameworks</span>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/db.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

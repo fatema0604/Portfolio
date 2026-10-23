@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="calculator" aria-label="Scientific calculator">
+        <header class="topbar">
+          <div class="group angle-mode-group" aria-label="Angle mode selector">
+            <button class="mode-btn is-active" data-mode="DEG" type="button">DEG</button>
+            <button class="mode-btn" data-mode="RAD" type="button">RAD</button>
+            <button class="mode-btn" data-mode="GRAD" type="button">GRAD</button>
+          </div>
+
+          <div class="group memory-group" aria-label="Memory controls">
+            <button class="memory-btn" data-memory="MC" type="button">MC</button>
+            <button class="memory-btn" data-memory="MR" type="button">MR</button>
+            <button class="memory-btn" data-memory="M+" type="button">M+</button>
+            <button class="memory-btn" data-memory="M-" type="button">M−</button>
+            <button class="memory-btn" data-memory="MS" type="button">MS</button>
+            <span id="memoryIndicator" class="memory-indicator" aria-live="polite">M</span>
+          </div>
+
+          <div class="group utility-group">
+            <button id="historyToggle" class="ghost-btn" type="button" aria-expanded="false" aria-controls="historyPanel">History</button>
+            <label class="format-picker" aria-label="Number format">
+              <span>Format</span>
+              <select id="formatMode" aria-label="Result format mode">
+                <option value="auto">Auto</option>
+                <option value="fixed">Fixed</option>
+                <option value="scientific">Scientific</option>
+              </select>
+            </label>
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+          </div>
+        </header>
+
+        <main class="content-grid">
+          <section class="display-panel" aria-label="Expression and result panel">
+            <div class="display-label">Expression</div>
+            <textarea
+              id="expressionInput"
+              aria-label="Calculator expression"
+              spellcheck="false"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              rows="3"
+            ></textarea>
+
+            <div class="result-row">
+              <div class="display-label result-label">Result</div>
+              <div id="resultDisplay" class="result-value" aria-live="polite">0</div>
+              <button id="copyResult" class="copy-button" type="button">Copy</button>
+            </div>
+
+            <div id="statusText" class="status-text" aria-live="polite"></div>
+          </section>
+
+          <section class="scientific-panel" aria-label="Scientific functions">
+            <div class="button-grid scientific-grid">
+              <button type="button" data-insert="sin(" class="function-btn">sin</button>
+              <button type="button" data-insert="cos(" class="function-btn">cos</button>
+              <button type="button" data-insert="tan(" class="function-btn">tan</button>
+              <button type="button" data-insert="asin(" class="function-btn">sin⁻¹</button>
+              <button type="button" data-insert="acos(" class="function-btn">cos⁻¹</button>
+              <button type="button" data-insert="atan(" class="function-btn">tan⁻¹</button>
+              <button type="button" data-insert="log(" class="function-btn">log</button>
+              <button type="button" data-insert="ln(" class="function-btn">ln</button>
+              <button type="button" data-insert="sqrt(" class="function-btn">√</button>
+              <button type="button" data-insert="^2" class="function-btn">x²</button>
+              <button type="button" data-insert="^3" class="function-btn">x³</button>
+              <button type="button" data-insert="^(" class="function-btn">xʸ</button>
+              <button type="button" data-insert="factorial(" class="function-btn">n!</button>
+              <button type="button" data-insert="nPr(" class="function-btn">nPr</button>
+              <button type="button" data-insert="nCr(" class="function-btn">nCr</button>
+              <button type="button" data-insert="abs(" class="function-btn">|x|</button>
+              <button type="button" data-insert="pi" class="function-btn">π</button>
+              <button type="button" data-insert="e" class="function-btn">e</button>
+              <button type="button" data-insert="10^(" class="function-btn">10ˣ</button>
+              <button type="button" data-insert="exp(" class="function-btn">eˣ</button>
+              <button type="button" data-insert="floor(" class="function-btn">floor</button>
+              <button type="button" data-insert="ceil(" class="function-btn">ceil</button>
+              <button type="button" data-insert="random()" class="function-btn">rand</button>
+              <button type="button" data-insert="gcd(" class="function-btn">gcd</button>
+              <button type="button" data-insert="lcm(" class="function-btn">lcm</button>
+            </div>
+          </section>
+
+          <section class="keypad-panel" aria-label="Calculator keypad">
+            <div class="button-grid keypad-grid">
+              <button type="button" data-action="clear" class="control-btn accent">AC</button>
+              <button type="button" data-action="delete" class="control-btn">DEL</button>
+              <button type="button" data-action="backspace" class="control-btn">⌫</button>
+              <button type="button" data-insert="/" class="operator-btn">÷</button>
+
+              <button type="button" data-insert="7" class="number-btn">7</button>
+              <button type="button" data-insert="8" class="number-btn">8</button>
+              <button type="button" data-insert="9" class="number-btn">9</button>
+              <button type="button" data-insert="*" class="operator-btn">×</button>
+
+              <button type="button" data-insert="4" class="number-btn">4</button>
+              <button type="button" data-insert="5" class="number-btn">5</button>
+              <button type="button" data-insert="6" class="number-btn">6</button>
+              <button type="button" data-insert="-" class="operator-btn">−</button>
+
+              <button type="button" data-insert="1" class="number-btn">1</button>
+              <button type="button" data-insert="2" class="number-btn">2</button>
+              <button type="button" data-insert="3" class="number-btn">3</button>
+              <button type="button" data-insert="+" class="operator-btn">+</button>
+
+              <button type="button" data-insert="(" class="utility-btn">(</button>
+              <button type="button" data-insert="0" class="number-btn">0</button>
+              <button type="button" data-insert=")" class="utility-btn">)</button>
+              <button type="button" data-action="evaluate" class="equals-btn">=</button>
+
+              <button type="button" data-insert="." class="utility-btn">.</button>
+              <button type="button" data-insert="%" class="utility-btn">%</button>
+              <button type="button" data-action="toggle-sign" class="utility-btn">±</button>
+              <button type="button" data-action="ans" class="utility-btn">ANS</button>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <aside id="historyPanel" class="history-overlay" aria-label="Calculation history" hidden>
+      <section class="history-dialog" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
+        <div class="history-header">
+          <h2 id="historyTitle">History</h2>
+          <div class="history-actions">
+            <button id="clearHistory" type="button" class="ghost-btn">Clear</button>
+            <button id="closeHistory" type="button" class="ghost-btn" aria-label="Close history">×</button>
+          </div>
+        </div>
+        <ul id="historyList" class="history-list" aria-live="polite"></ul>
+      </section>
+    </aside>
+  </body>
+</html>
